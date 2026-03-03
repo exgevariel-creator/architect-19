@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHITECT-19 - AI Super Advance</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: background 0.5s ease;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 3D Background Effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== COLOR THEMES ========== */
+        body[data-theme="royal"] {
+            background: linear-gradient(135deg, #1a0b2e 0%, #2d1b3a 50%, #4a2b5e 100%);
+        }
+        body[data-theme="royal"] .card {
+            background: linear-gradient(145deg, rgba(106, 13, 173, 0.9), rgba(75, 0, 130, 0.9));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        body[data-theme="royal"] .btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #1a0b2e;
+        }
+
+        body[data-theme="oceanic"] {
+            background: linear-gradient(135deg, #0a4b5c 0%, #0d6b7d 50%, #1e8fb9 100%);
+        }
+        body[data-theme="oceanic"] .card {
+            background: linear-gradient(145deg, rgba(0, 150, 200, 0.9), rgba(0, 100, 150, 0.9));
+            border: 1px solid rgba(0, 255, 200, 0.3);
+        }
+        body[data-theme="oceanic"] .btn {
+            background: linear-gradient(45deg, #00ff9d, #00ccff);
+            color: #0a4b5c;
+        }
+
+        body[data-theme="sunset"] {
+            background: linear-gradient(135deg, #8b1e1e 0%, #c44b4b 50%, #ff7e5f 100%);
+        }
+        body[data-theme="sunset"] .card {
+            background: linear-gradient(145deg, rgba(200, 70, 70, 0.9), rgba(150, 40, 40, 0.9));
+            border: 1px solid rgba(255, 200, 0, 0.3);
+        }
+        body[data-theme="sunset"] .btn {
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            color: #8b1e1e;
+        }
+
+        body[data-theme="emerald"] {
+            background: linear-gradient(135deg, #0f4e3a 0%, #1b6b4f 50%, #2e8b6f 100%);
+        }
+        body[data-theme="emerald"] .card {
+            background: linear-gradient(145deg, rgba(0, 150, 100, 0.9), rgba(0, 100, 50, 0.9));
+            border: 1px solid rgba(0, 255, 150, 0.3);
+        }
+        body[data-theme="emerald"] .btn {
+            background: linear-gradient(45deg, #a3e635, #4ade80);
+            color: #0f4e3a;
+        }
+
+        /* ========== MAIN CONTAINER 3D ========== */
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 60px;
+            padding: 40px;
+            box-shadow: 
+                0 50px 70px -20px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(255,255,255,0.1) inset,
+                0 0 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            transform: perspective(1000px) rotateX(2deg);
+            transition: transform 0.5s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container:hover {
+            transform: perspective(1000px) rotateX(1deg) scale(1.01);
+        }
+
+        /* ========== HEADER ========== */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #fff, #e0e7ff, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 
+                0 10px 20px rgba(0,0,0,0.3),
+                0 0 40px rgba(255,255,255,0.3);
+            letter-spacing: 2px;
+            transform: translateZ(30px);
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.95);
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+            transform: translateZ(20px);
+        }
+
+        .header .subtitle i {
+            margin-right: 10px;
+            color: #FFD700;
+            -webkit-text-fill-color: initial;
+        }
+
+        /* ========== COLOR THEME SELECTOR 3D ========== */
+        .theme-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            transform: translateZ(40px);
+        }
+
+        .theme-dot {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid rgba(255,255,255,0.5);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transform: translateY(0) scale(1);
+        }
+
+        .theme-dot:hover {
+            transform: translateY(-10px) scale(1.2);
+            border-color: white;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.4);
+        }
+
+        .theme-dot[data-theme="royal"] { background: linear-gradient(45deg, #6a0dad, #ffd700); }
+        .theme-dot[data-theme="oceanic"] { background: linear-gradient(45deg, #00b4d8, #00ff9d); }
+        .theme-dot[data-theme="sunset"] { background: linear-gradient(45deg, #ff6b6b, #feca57); }
+        .theme-dot[data-theme="emerald"] { background: linear-gradient(45deg, #10b981, #6ee7b7); }
+
+        /* ========== MENU TABS 3D ========== */
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            transform-style: preserve-3d;
+        }
+
+        .tab-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 18px 45px;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 
+                0 15px 25px -8px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(255,255,255,0.1) inset;
+            transform: translateZ(15px) translateY(0);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .tab-btn:hover::before {
+            left: 100%;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #1e293b;
+            transform: translateZ(25px) translateY(-5px);
+            box-shadow: 0 25px 35px -10px rgba(0,0,0,0.5);
+        }
+
+        /* ========== CARDS 3D ========== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+            margin-top: 30px;
+            transform-style: preserve-3d;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 40px;
+            padding: 30px;
+            box-shadow: 
+                0 30px 40px -15px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(255,255,255,0.2) inset,
+                0 20px 30px -10px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255,255,255,0.2);
+            transform: translateZ(10px) translateY(0) rotateX(0deg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 70%);
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateZ(30px) translateY(-15px) rotateX(2deg);
+            box-shadow: 
+                0 50px 60px -20px rgba(0,0,0,0.6),
+                0 0 0 2px rgba(255,255,255,0.3) inset;
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 0 5px 10px rgba(0,0,0,0.3);
+            transform: translateZ(20px);
+        }
+
+        .card h2 i {
+            font-size: 2.2rem;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+        }
+
+        /* ========== FORM ELEMENTS ========== */
+        .card textarea, .card input, .card select {
+            width: 100%;
+            padding: 18px;
+            border-radius: 25px;
+            border: 2px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.15);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: white;
+            resize: vertical;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transform: translateZ(15px);
+        }
+
+        .card textarea:focus, .card input:focus, .card select:focus {
+            outline: none;
+            border-color: rgba(255,255,255,0.8);
+            background: rgba(255,255,255,0.25);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .card textarea::placeholder, .card input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .card select {
+            color: white;
+        }
+
+        .card select option {
+            background: #1e293b;
+            color: white;
+        }
+
+        .btn {
+            border: none;
+            padding: 18px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 
+                0 15px 25px -8px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(255,255,255,0.2) inset;
+            transform: translateZ(20px) translateY(0);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateZ(30px) translateY(-3px);
+            box-shadow: 0 25px 35px -10px rgba(0,0,0,0.5);
+        }
+
+        .btn i {
+            font-size: 1.2rem;
+        }
+
+        /* ========== RESULT BOX ========== */
+        .result-box {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 25px;
+            margin-top: 25px;
+            border-left: 5px solid currentColor;
+            color: white;
+            font-size: 1rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
+            transform: translateZ(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* ========== LOADING ========== */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .loading i {
+            font-size: 2.5rem;
+            color: white;
+            animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(255,255,255,0.8)); }
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            transform: translateZ(10px);
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 5px 15px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .footer a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            .header h1 { font-size: 2.5rem; }
+            .header .subtitle { font-size: 1.4rem; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body data-theme="royal">
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>SELAMAT DATANG BOSKU</h1>
+            <div class="subtitle">
+                <i class="fas fa-crown"></i> ARCHITECT - 19 <i class="fas fa-crown"></i>
+            </div>
+        </div>
+
+        <!-- Color Theme Selector -->
+        <div class="theme-selector">
+            <div class="theme-dot" data-theme="royal" title="Royal Gold"></div>
+            <div class="theme-dot" data-theme="oceanic" title="Oceanic Neon"></div>
+            <div class="theme-dot" data-theme="sunset" title="Sunset Fire"></div>
+            <div class="theme-dot" data-theme="emerald" title="Emerald Forest"></div>
+        </div>
+
+        <!-- Menu Tabs -->
+        <div class="menu-tabs">
+            <button class="tab-btn active" id="tab1-btn"><i class="fas fa-cube"></i> PROJECT TOOLS</button>
+            <button class="tab-btn" id="tab2-btn"><i class="fas fa-chart-pie"></i> ANALYZE</button>
+        </div>
+
+        <!-- Tab 1: PROJECT TOOLS -->
+        <div id="tab1" class="tab-content active">
+            <div class="card-grid">
+                <!-- Card 1: PRD Generator -->
+                <div class="card">
+                    <h2><i class="fas fa-file-contract"></i> PRD Generator</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin-bottom: 20px;">Buat Project Requirement Document hanya dengan deskripsi singkat.</p>
+                    <textarea id="prd-input" rows="4" placeholder="Contoh: Aplikasi e-commerce untuk menjual pakaian dengan fitur chat..."></textarea>
+                    <button class="btn" id="prd-btn"><i class="fas fa-bolt"></i> Generate PRD</button>
+                    <div id="prd-result" class="result-box" style="display: none;"></div>
+                    <div class="loading" id="prd-loading"><i class="fas fa-spinner"></i></div>
+                </div>
+                <!-- Card 2: Content Creator -->
+                <div class="card">
+                    <h2><i class="fas fa-feather"></i> Content Creator</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin-bottom: 20px;">Hasilkan artikel, cerita, naskah, atau penjelasan engineering.</p>
+                    <textarea id="content-input" rows="4" placeholder="Tema atau topik yang diinginkan..."></textarea>
+                    <select id="content-type" style="margin-bottom: 20px;">
+                        <option value="artikel">Artikel umum</option>
+                        <option value="cerita">Cerita pendek</option>
+                        <option value="naskah">Naskah video/podcast</option>
+                        <option value="engineering">Penjelasan engineering</option>
+                    </select>
+                    <button class="btn" id="content-btn"><i class="fas fa-pen-fancy"></i> Buat Konten</button>
+                    <div id="content-result" class="result-box" style="display: none;"></div>
+                    <div class="loading" id="content-loading"><i class="fas fa-spinner"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: ANALYZE -->
+        <div id="tab2" class="tab-content">
+            <div class="card" style="max-width: 900px; margin: 0 auto;">
+                <h2><i class="fas fa-microscope"></i> Analyzer Super Advance</h2>
+                <p style="color: rgba(255,255,255,0.9); margin-bottom: 20px;">Masukkan teks apa saja untuk analisis mendalam + prediksi masa depan.</p>
+                <textarea id="analyze-input" rows="6" placeholder="Contoh: Mengapa generasi Z lebih suka belanja online daripada ke mall?"></textarea>
+                <button class="btn" id="analyze-btn"><i class="fas fa-brain"></i> Analisis Sekarang</button>
+                <div id="analyze-result" class="result-box" style="display: none;"></div>
+                <div class="loading" id="analyze-loading"><i class="fas fa-spinner"></i></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <i class="fas fa-bolt"></i> Powered by <strong>ARCHITECT-19 ENGINE</strong> 
+            <a href="https://aistudio.google.com/app/apikey" target="_blank"><i class="fas fa-key"></i> Dapatkan API Key</a>
+        </div>
+    </div>
+
+    <script>
+        // ================= 🔑 GANTI API KEY DISINI BOSKU =================
+        // Dapatkan API Key gratis dari: https://aistudio.google.com/app/apikey
+        const API_KEY = 'AIzaSyAH6by26N0gQDBfvnCMO6h73NDMFDQUipk';  // <--- GANTI INI!
+        
+        // URL API Gemini
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+        // ================= UTILITY =================
+        function showLoading(loadingId) {
+            document.getElementById(loadingId).style.display = 'block';
+        }
+        function hideLoading(loadingId) {
+            document.getElementById(loadingId).style.display = 'none';
+        }
+        function showResult(resultId, text) {
+            const el = document.getElementById(resultId);
+            el.style.display = 'block';
+            el.innerText = text;
+        }
+        function hideResult(resultId) {
+            document.getElementById(resultId).style.display = 'none';
+        }
+
+        // Fungsi panggil Gemini API
+        async function callGemini(prompt) {
+            if (!API_KEY || API_KEY === 'ISI_API_KEY_KAMU_DISINI') {
+                throw new Error('API Key belum diisi! Klik link "Dapatkan API Key" di footer.');
+            }
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: prompt }]
+                    }]
+                })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error?.message || 'Gagal memanggil API');
+            }
+            return data.candidates[0].content.parts[0].text;
+        }
+
+        // ================= THEME SWITCHER =================
+        document.querySelectorAll('.theme-dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                const theme = dot.getAttribute('data-theme');
+                document.body.setAttribute('data-theme', theme);
+                localStorage.setItem('selected_theme', theme);
+            });
+        });
+
+        // Load theme dari localStorage
+        const savedTheme = localStorage.getItem('selected_theme');
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+        }
+
+        // ================= TAB SWITCHING =================
+        document.getElementById('tab1-btn').addEventListener('click', () => {
+            document.getElementById('tab1-btn').classList.add('active');
+            document.getElementById('tab2-btn').classList.remove('active');
+            document.getElementById('tab1').classList.add('active');
+            document.getElementById('tab2').classList.remove('active');
+        });
+        document.getElementById('tab2-btn').addEventListener('click', () => {
+            document.getElementById('tab2-btn').classList.add('active');
+            document.getElementById('tab1-btn').classList.remove('active');
+            document.getElementById('tab2').classList.add('active');
+            document.getElementById('tab1').classList.remove('active');
+        });
+
+        // ================= PRD GENERATOR =================
+        document.getElementById('prd-btn').addEventListener('click', async () => {
+            const input = document.getElementById('prd-input').value.trim();
+            if (!input) {
+                alert('Mohon masukkan deskripsi proyek.');
+                return;
+            }
+            const prompt = `Buatkan Project Requirement Document (PRD) yang sangat detail dan profesional untuk proyek berikut: ${input}. Gunakan format dengan bagian: 1. Tujuan & Latar Belakang, 2. Fitur Utama (prioritas), 3. Target Pengguna, 4. Metrik Kesuksesan, 5. Kendala Teknis. Sertakan juga rekomendasi tech stack modern. Tulis dalam bahasa Indonesia yang baik dan benar.`;
+            hideResult('prd-result');
+            showLoading('prd-loading');
+            try {
+                const result = await callGemini(prompt);
+                showResult('prd-result', result);
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                hideLoading('prd-loading');
+            }
+        });
+
+        // ================= CONTENT CREATOR =================
+        document.getElementById('content-btn').addEventListener('click', async () => {
+            const input = document.getElementById('content-input').value.trim();
+            const type = document.getElementById('content-type').value;
+            if (!input) {
+                alert('Mohon masukkan topik konten.');
+                return;
+            }
+            let prompt = '';
+            switch(type) {
+                case 'artikel':
+                    prompt = `Buatlah artikel informatif dan menarik tentang: ${input}. Panjang sekitar 500 kata. Gunakan gaya bahasa profesional namun mudah dipahami.`;
+                    break;
+                case 'cerita':
+                    prompt = `Ciptakan cerita pendek (fiksi) berdasarkan tema: ${input}. Gunakan alur yang menarik dan karakter yang hidup.`;
+                    break;
+                case 'naskah':
+                    prompt = `Buat naskah untuk video/podcast tentang: ${input}. Sertakan pembukaan, isi, dan penutup. Gaya bicara seperti host profesional.`;
+                    break;
+                case 'engineering':
+                    prompt = `Jelaskan konsep engineering berikut dengan cara yang mudah dimengerti oleh pemula, tetapi tetap akurat: ${input}. Sertakan contoh dan analogi jika perlu.`;
+                    break;
+            }
+            hideResult('content-result');
+            showLoading('content-loading');
+            try {
+                const result = await callGemini(prompt);
+                showResult('content-result', result);
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                hideLoading('content-loading');
+            }
+        });
+
+        // ================= ANALYZE =================
+        document.getElementById('analyze-btn').addEventListener('click', async () => {
+            const input = document.getElementById('analyze-input').value.trim();
+            if (!input) {
+                alert('Mohon masukkan teks untuk dianalisis.');
+                return;
+            }
+            const prompt = `Lakukan analisis super advance terhadap pernyataan/masalah berikut: "${input}". Berikan output dengan struktur:
+**Kesimpulan Utama**:
+[Penjelasan ringkas]
+
+**Analisis Mendalam**:
+[Analisis dari berbagai sudut pandang: sosial, teknologi, ekonomi, dll]
+
+**Saran Konkret**:
+[Langkah-langkah yang bisa diambil]
+
+**Prediksi Masa Depan**:
+[Proyeksi 5-10 tahun ke depan berdasarkan tren saat ini]
+
+Gunakan nada sebagai pakar, profesor, dan futuris. Tulis dalam bahasa Indonesia.`;
+            hideResult('analyze-result');
+            showLoading('analyze-loading');
+            try {
+                const result = await callGemini(prompt);
+                showResult('analyze-result', result);
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                hideLoading('analyze-loading');
+            }
+        });
+
+        // Inisialisasi: sembunyikan semua hasil
+        hideResult('prd-result');
+        hideResult('content-result');
+        hideResult('analyze-result');
+    </script>
+</body>
+</html>
