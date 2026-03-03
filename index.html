@@ -3,149 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MASTER-WEB-OMNI | Stable Engine</title>
+    <title>MASTER-WEB-OMNI | Anti-CORS Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     
     <style>
         :root { --primary: #6366f1; --secondary: #ec4899; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0f172a; color: #f8fafc; min-height: 100vh; margin: 0; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0b0f1a; color: #f8fafc; min-height: 100vh; margin: 0; }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .active-tab { background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 2px solid var(--primary); }
-        .loader-spin { border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid var(--primary); border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; }
+        .loader-spin { border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid var(--primary); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #ai-output h1 { font-size: 1.5rem; font-weight: 800; color: #818cf8; margin-bottom: 1rem; border-bottom: 1px solid rgba(129, 140, 248, 0.3); padding-bottom: 0.5rem; }
-        #ai-output h2 { font-size: 1.25rem; font-weight: 700; color: #34d399; margin-top: 1.5rem; margin-bottom: 0.5rem; }
-        #ai-output p { margin-bottom: 0.8rem; color: #cbd5e1; line-height: 1.6; }
-        #ai-output ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; }
+        #ai-output h1 { font-size: 1.4rem; font-weight: 800; color: #818cf8; margin: 1rem 0; }
+        #ai-output h2 { font-size: 1.2rem; font-weight: 700; color: #34d399; margin-top: 1.2rem; }
+        #ai-output p { margin-bottom: 0.8rem; line-height: 1.6; color: #cbd5e1; }
+        #ai-output ul { margin-left: 1.2rem; list-style-type: disc; margin-bottom: 1rem; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="p-4 md:p-10">
 
-    <div class="max-w-6xl mx-auto">
-        <header class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6 text-center md:text-left">
+    <div class="max-w-5xl mx-auto">
+        <header class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
             <div>
-                <h1 class="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-pink-500">MASTER-WEB-OMNI v3.0</h1>
-                <p class="text-slate-400 text-sm mt-1 font-medium tracking-wide">ULTIMATE STRATEGIC AI - STABLE ENGINE</p>
+                <h1 class="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-fuchsia-500">MASTER-WEB-OMNI v4.0</h1>
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-tighter">Bypass Engine Active</p>
             </div>
-            <nav class="glass rounded-full px-2 py-1 flex gap-2">
-                <button onclick="switchTab('menu1')" id="btn-menu1" class="px-6 py-2 rounded-full font-bold transition-all active-tab">Creator Hub</button>
-                <button onclick="switchTab('menu2')" id="btn-menu2" class="px-6 py-2 rounded-full font-bold text-slate-400 hover:text-white transition-all">Sharp Analytics</button>
+            <nav class="glass rounded-2xl p-1 flex gap-1">
+                <button onclick="switchTab('menu1')" id="btn-menu1" class="px-5 py-2 rounded-xl text-sm font-bold active-tab transition-all">Hub</button>
+                <button onclick="switchTab('menu2')" id="btn-menu2" class="px-5 py-2 rounded-xl text-sm font-bold text-slate-500 hover:text-white transition-all">Analytics</button>
             </nav>
         </header>
 
         <main>
-            <!-- MENU 1 -->
-            <section id="menu1" class="grid md:grid-cols-2 gap-8">
-                <div class="glass p-6 rounded-3xl border border-white/5">
-                    <h2 class="text-xl font-bold mb-4">Expert PRD Architect</h2>
-                    <textarea id="prd-input" class="w-full h-32 bg-slate-900/50 border border-slate-700 rounded-xl p-4 text-sm outline-none focus:border-indigo-500" placeholder="Ide aplikasi..."></textarea>
-                    <button onclick="startAction('prd')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 py-3 rounded-xl font-bold flex items-center justify-center gap-3 transition">
-                        <span>Generate PRD</span><div id="loader-prd" class="loader-spin hidden"></div>
+            <!-- SECTION HUB -->
+            <section id="menu1" class="grid md:grid-cols-2 gap-6">
+                <div class="glass p-6 rounded-3xl border-t border-white/10">
+                    <h3 class="font-bold mb-3 text-indigo-400">PRD Architect</h3>
+                    <textarea id="prd-input" class="w-full h-28 bg-black/20 border border-slate-800 rounded-xl p-4 text-sm outline-none focus:border-indigo-500" placeholder="Ide aplikasi..."></textarea>
+                    <button onclick="runAI('prd')" class="mt-3 w-full bg-indigo-600 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
+                        <span>Generate</span><div id="loader-prd" class="loader-spin hidden"></div>
                     </button>
                 </div>
-                <div class="glass p-6 rounded-3xl border border-white/5">
-                    <h2 class="text-xl font-bold mb-4">Creative Content</h2>
-                    <textarea id="creative-input" class="w-full h-32 bg-slate-900/50 border border-slate-700 rounded-xl p-4 text-sm outline-none focus:border-pink-500" placeholder="Instruksi konten..."></textarea>
-                    <button onclick="startAction('creative')" class="mt-4 w-full bg-pink-600 hover:bg-pink-500 py-3 rounded-xl font-bold flex items-center justify-center gap-3 transition">
-                        <span>Generate Content</span><div id="loader-creative" class="loader-spin hidden"></div>
+                <div class="glass p-6 rounded-3xl border-t border-white/10">
+                    <h3 class="font-bold mb-3 text-pink-400">Creative Content</h3>
+                    <textarea id="creative-input" class="w-full h-28 bg-black/20 border border-slate-800 rounded-xl p-4 text-sm outline-none focus:border-pink-500" placeholder="Instruksi konten..."></textarea>
+                    <button onclick="runAI('creative')" class="mt-3 w-full bg-pink-600 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
+                        <span>Generate</span><div id="loader-creative" class="loader-spin hidden"></div>
                     </button>
                 </div>
             </section>
 
-            <!-- MENU 2 -->
+            <!-- SECTION ANALYTICS -->
             <section id="menu2" class="hidden">
-                <div class="glass p-8 rounded-3xl border-l-4 border-emerald-500">
-                    <h2 class="text-2xl font-bold mb-4">Sharp Strategic Analytics</h2>
-                    <input id="analyze-input" type="text" class="w-full bg-slate-900/80 border border-slate-700 rounded-2xl p-5 mb-4 outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Masukkan isu/kejadian...">
-                    <button onclick="startAction('analyze')" class="w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition shadow-lg">
-                        <span>Mulai Analisis Strategis</span><div id="loader-analyze" class="loader-spin hidden"></div>
+                <div class="glass p-8 rounded-3xl border-l-4 border-emerald-500 shadow-2xl">
+                    <h2 class="text-xl font-bold mb-4">Strategic Analytics</h2>
+                    <input id="analyze-input" type="text" class="w-full bg-black/30 border border-slate-800 rounded-xl p-4 mb-4 outline-none focus:ring-1 focus:ring-emerald-500" placeholder="Masukkan isu strategis...">
+                    <button onclick="runAI('analyze')" class="w-full bg-emerald-600 py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                        <span>Mulai Analisis</span><div id="loader-analyze" class="loader-spin hidden"></div>
                     </button>
                 </div>
             </section>
 
-            <!-- Result -->
-            <section id="result-hub" class="mt-12 hidden">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-semibold text-sky-400 uppercase text-xs">AI Output Result</h3>
-                    <button onclick="copyContent()" class="text-xs bg-slate-700 px-4 py-2 rounded-lg font-bold">Copy</button>
+            <!-- OUTPUT -->
+            <section id="result-hub" class="mt-10 hidden">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">Neural Stream Output</span>
+                    <button onclick="copyRaw()" class="text-[10px] bg-white/10 px-3 py-1 rounded-md font-bold hover:bg-white/20">Copy Markdown</button>
                 </div>
-                <div class="glass rounded-3xl p-6 md:p-10 shadow-2xl">
-                    <div id="ai-output" class="text-slate-200"></div>
+                <div class="glass rounded-3xl p-6 md:p-8 shadow-inner min-h-[200px]">
+                    <div id="ai-output" class="text-slate-300"></div>
                 </div>
             </section>
         </main>
     </div>
 
-    <script type="module">
-        // MENGGUNAKAN SDK RESMI UNTUK MENGHINDARI CORS ERROR PADA BEBERAPA KASUS
-        import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+    <script>
+        const API_KEY = "AIzaSyDpSbU0f9FmYzyEc5XhICVLgPCQleiQsN0";
+        const MODEL = "gemini-1.5-flash";
 
-        // API KEY ANDA (Sudah terpasang)
-        const API_KEY = "AIzaSyDpSbU0f9FmYzyEc5XhICVLgPCQleiQsN0"; 
-        const genAI = new GoogleGenerativeAI(API_KEY);
-
-        window.switchTab = function(tabId) {
-            document.getElementById('menu1').classList.toggle('hidden', tabId !== 'menu1');
-            document.getElementById('menu2').classList.toggle('hidden', tabId !== 'menu2');
-            document.getElementById('btn-menu1').className = tabId === 'menu1' ? "px-6 py-2 rounded-full font-bold transition-all active-tab" : "px-6 py-2 rounded-full font-bold text-slate-400 hover:text-white transition-all";
-            document.getElementById('btn-menu2').className = tabId === 'menu2' ? "px-6 py-2 rounded-full font-bold transition-all active-tab" : "px-6 py-2 rounded-full font-bold text-slate-400 hover:text-white transition-all";
+        window.switchTab = (t) => {
+            document.getElementById('menu1').classList.toggle('hidden', t!=='menu1');
+            document.getElementById('menu2').classList.toggle('hidden', t!=='menu2');
+            document.getElementById('btn-menu1').className = t==='menu1' ? "px-5 py-2 rounded-xl text-sm font-bold active-tab transition-all" : "px-5 py-2 rounded-xl text-sm font-bold text-slate-500 hover:text-white transition-all";
+            document.getElementById('btn-menu2').className = t==='menu2' ? "px-5 py-2 rounded-xl text-sm font-bold active-tab transition-all" : "px-5 py-2 rounded-xl text-sm font-bold text-slate-500 hover:text-white transition-all";
         }
 
-        window.startAction = async function(type) {
-            const outputHub = document.getElementById('result-hub');
-            const outputText = document.getElementById('ai-output');
-            const loader = document.getElementById('loader-' + type);
-            const inputVal = document.getElementById(type === 'analyze' ? 'analyze-input' : (type === 'prd' ? 'prd-input' : 'creative-input')).value;
+        window.runAI = async (type) => {
+            const out = document.getElementById('ai-output');
+            const hub = document.getElementById('result-hub');
+            const load = document.getElementById('loader-'+type);
+            const val = document.getElementById(type==='analyze'?'analyze-input':(type==='prd'?'prd-input':'creative-input')).value;
 
-            if(!inputVal.trim()) return alert("Input kosong!");
-
-            loader.classList.remove('hidden');
-            outputHub.classList.remove('hidden');
-            outputText.innerHTML = `<p class="animate-pulse text-indigo-400 italic text-center py-10">Neural Engine sedang bekerja...</p>`;
-            outputHub.scrollIntoView({ behavior: 'smooth' });
+            if(!val.trim()) return;
+            
+            load.classList.remove('hidden');
+            hub.classList.remove('hidden');
+            out.innerHTML = `<p class="animate-pulse text-indigo-400 text-center py-12">Mengirim data via Proxy Bridge...</p>`;
+            hub.scrollIntoView({ behavior: 'smooth' });
 
             let prompt = "";
-            if(type === 'analyze') {
-                prompt = `Lakukan analisis intelijen strategis terhadap isu: "${inputVal}". 
-                WAJIB: 1. Dukung kedaulatan NKRI. 2. Petakan aktor pendukung OPM sesuai data publik. 
-                STRUKTUR: I. Kondisi Saat Ini, II. Kesimpulan, III. PREDIKSI (7 Hari), IV. LANGKAH KONGKRIT (Taktis & Kritis). 
-                Gunakan Markdown Indonesia.`;
-            } else if(type === 'prd') {
-                prompt = `Buatkan Project Requirement Document detail untuk: "${inputVal}". Markdown.`;
-            } else {
-                prompt = `Buatkan konten kreatif: "${inputVal}". Markdown.`;
-            }
+            if(type==='analyze') prompt = `Analisis strategis: "${val}". WAJIB: Dukung NKRI & Aparat. Struktur: I. Kondisi, II. Kesimpulan, III. Prediksi, IV. Langkah Kongkrit. Indonesia formal.`;
+            else prompt = `Buatkan ${type==='prd'?'PRD detail':'konten kreatif'} untuk: "${val}". Format Markdown.`;
+
+            // TEKNIK BYPASS CORS: Menggunakan AllOrigins Proxy
+            const targetUrl = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
 
             try {
-                // Model 1.5 Flash adalah versi GRATIS paling stabil
-                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-                const result = await model.generateContent(prompt);
-                const response = await result.response;
-                const text = response.text();
+                const response = await fetch(proxyUrl, {
+                    method: 'POST',
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
 
-                outputText.setAttribute('data-raw', text);
-                outputText.innerHTML = marked.parse(text);
-            } catch (error) {
-                console.error(error);
-                let msg = error.message;
-                if(msg.includes("API key not valid")) msg = "API Key Anda salah atau tidak aktif.";
-                if(msg.includes("User location is not supported")) msg = "Gunakan VPN atau pastikan lokasi Anda didukung Google AI.";
-                if(msg.includes("fetch")) msg = "Browser memblokir permintaan (CORS Error). Solusi: Upload file ini ke Vercel/Netlify agar online.";
-                
-                outputText.innerHTML = `<div class="p-6 bg-red-900/20 border border-red-500 rounded-2xl text-red-400">
-                    <h4 class="font-bold mb-2 text-lg">⚠️ GAGAL MEMPROSES</h4>
-                    <p class="text-sm opacity-90">${msg}</p>
+                // Proxy AllOrigins mengembalikan data dalam field .contents yang berupa string JSON
+                const proxyData = await response.json();
+                const actualData = JSON.parse(proxyData.contents);
+
+                if (actualData.error) throw new Error(actualData.error.message);
+
+                const result = actualData.candidates[0].content.parts[0].text;
+                out.setAttribute('data-raw', result);
+                out.innerHTML = marked.parse(result);
+            } catch (err) {
+                out.innerHTML = `<div class="p-4 bg-red-500/10 border border-red-500/50 rounded-xl text-red-400 text-xs">
+                    <b>SISTEM GAGAL:</b> ${err.message}<br><br>
+                    <i>Saran: Jika error berlanjut, kemungkinan API Key Anda terkena limit. Tunggu 1 menit lalu coba lagi.</i>
                 </div>`;
             } finally {
-                loader.classList.add('hidden');
+                load.classList.add('hidden');
             }
         }
 
-        window.copyContent = function() {
-            const raw = document.getElementById('ai-output').getAttribute('data-raw');
-            navigator.clipboard.writeText(raw).then(() => alert("Tersalin!"));
+        window.copyRaw = () => {
+            const txt = document.getElementById('ai-output').getAttribute('data-raw');
+            navigator.clipboard.writeText(txt).then(() => alert("Copied!"));
         }
     </script>
 </body>
